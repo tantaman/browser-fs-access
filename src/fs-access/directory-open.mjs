@@ -25,7 +25,7 @@ const getFiles = async (
   const files = [];
   for await (const entry of dirHandle.values()) {
     const nestedPath = `${path}/${entry.name}`;
-    if (entry.kind === 'file') {
+    if (entry.kind === 'file' && (!skipFile || !skipFile(entry))) {
       files.push(
         entry.getFile().then((file) => {
           file.directoryHandle = dirHandle;

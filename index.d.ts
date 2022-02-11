@@ -165,6 +165,7 @@ export function directoryOpen(options?: {
   skipDirectory?: (
     fileSystemDirectoryEntry: FileSystemDirectoryEntry
   ) => boolean;
+  skipFile?: (entry: FileSystemFileEntry) => boolean;
   /**
    * Configurable setup, cleanup and `Promise` rejector usable with legacy API
    * for determining when (and reacting if) a user cancels the operation. The
