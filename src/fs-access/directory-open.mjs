@@ -19,7 +19,8 @@ const getFiles = async (
   dirHandle,
   recursive,
   path = dirHandle.name,
-  skipDirectory
+  skipDirectory,
+  skipFile
 ) => {
   const dirs = [];
   const files = [];
@@ -42,7 +43,9 @@ const getFiles = async (
       recursive &&
       (!skipDirectory || !skipDirectory(entry))
     ) {
-      dirs.push(getFiles(entry, recursive, nestedPath, skipDirectory));
+      dirs.push(
+        getFiles(entry, recursive, nestedPath, skipDirectory, skipFile)
+      );
     }
   }
   return [...(await Promise.all(dirs)).flat(), ...(await Promise.all(files))];
@@ -58,5 +61,14 @@ export default async (options = {}) => {
     id: options.id,
     startIn: options.startIn,
   });
-  return getFiles(handle, options.recursive, undefined, options.skipDirectory);
+  return [
+    handle,
+    await getFiles(
+      handle,
+      options.recursive,
+      undefined,
+      options.skipDirectory,
+      options.skipFile
+    ),
+  ];
 };
