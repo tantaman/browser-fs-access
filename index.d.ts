@@ -1,3 +1,14 @@
+export interface FileSystemDirectoryHandle extends FileSystemHandle {
+  readonly name: string;
+  getFileHandle(
+    name: string,
+    options: { create?: boolean }
+  ): FileSystemFileHandle;
+}
+export interface FileSystemFileHandle extends FileSystemHandle {
+  getFile(): Promise<File>;
+}
+
 /**
  * Properties shared by all `options` provided to file save and open operations
  */
