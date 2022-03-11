@@ -63,5 +63,8 @@
     "rules": {
       "valid-jsdoc": "off"
     }
+  },
+  "dependencies": {
+    "@types/filesystem": "^0.0.32"
   }
 }
